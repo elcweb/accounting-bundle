@@ -1,0 +1,35 @@
+<?php
+
+namespace Elcweb\AccountingBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * AccountType
+ *
+ * @ORM\Table
+ * @ORM\Entity()
+ *
+ */
+class AccountType
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=1)
+     */
+    private $value;
+}
