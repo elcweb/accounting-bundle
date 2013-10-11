@@ -4,6 +4,8 @@ namespace Elcweb\AccountingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use DoctrineExtensions\Taggable\Taggable;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Account
@@ -13,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  *
  */
-class Account
+class Account implements Taggable
 {
     /**
      * @var integer
@@ -65,6 +67,25 @@ class Account
      * @ORM\OrderBy({"lft" = "ASC"})
      */
     private $children;
+
+    private $tags;
+
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
+    }
+
+    public function getTaggableType()
+    {
+        return 'acme_tag';
+    }
+
+    public function getTaggableId()
+    {
+        return $this->getId();
+    }
 
     public function getId()
     {
