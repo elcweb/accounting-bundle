@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Account
  *
  * @Gedmo\Tree(type="nested")
- * @ORM\Table
+ * @ORM\Table(name="acc_accounts")
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  *
  */
@@ -68,7 +68,19 @@ class Account implements Taggable
      */
     private $children;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Entry", mappedBy="account")
+     */
+    private $entries;
+
     private $tags;
+
+    /**
+     * @var string $code
+     *
+     * @ORM\Column(type="string", length=25, unique=true, nullable=true)
+     */
+    private $code;
 
     public function getTags()
     {
@@ -79,7 +91,7 @@ class Account implements Taggable
 
     public function getTaggableType()
     {
-        return 'acme_tag';
+        return 'accounting_account_tag';
     }
 
     public function getTaggableId()
@@ -110,5 +122,25 @@ class Account implements Taggable
     public function getParent()
     {
         return $this->parent;
+    }
+
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getName();
     }
 }

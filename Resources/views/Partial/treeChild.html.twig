@@ -1,0 +1,11 @@
+
+<li>
+    <a href="{{ path(pathTarget, { id: node.id }) }}">{{ node.name }}</a>
+    {% if node.__children %}
+        <ul>
+        {% for c in node.__children %}
+            {% include "ElcwebAccountingBundle:Partial:treeChild.html.twig" with {'pathTarget': pathTarget, 'node': c} %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+</li>

@@ -1,0 +1,15 @@
+{% extends '::layout.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="active">Accounts</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+    {% spaceless %}
+        <ul>
+            {% for t in tree %}
+                {% include "ElcwebAccountingBundle:Partial:treeChild.html.twig" with {'pathTarget': 'elcweb_accounting_account_show', 'node': t} %}
+            {% endfor %}
+        </ul>
+    {% endspaceless %}
+{% endblock %}

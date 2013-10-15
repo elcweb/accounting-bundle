@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TransactionType
  *
- * @ORM\Table()
+ * @ORM\Table(name="acc_transaction_types")
  * @ORM\Entity(repositoryClass="TransactionTypeRepository")
  */
 class TransactionType

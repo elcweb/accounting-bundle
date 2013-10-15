@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Entry
  *
- * @ORM\Table
+ * @ORM\Table(name="acc_entries")
  * @ORM\Entity()
  *
  */
@@ -60,4 +60,129 @@ class Entry
      */
     protected $comment;
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Entry
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param float $amount
+     * @return Entry
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+    
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return float 
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return Entry
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set transaction
+     *
+     * @param \Elcweb\AccountingBundle\Entity\Transaction $transaction
+     * @return Entry
+     */
+    public function setTransaction(Transaction $transaction)
+    {
+        $this->transaction = $transaction;
+    
+        return $this;
+    }
+
+    /**
+     * Get transaction
+     *
+     * @return \Elcweb\AccountingBundle\Entity\Transaction 
+     */
+    public function getTransaction()
+    {
+        return $this->transaction;
+    }
+
+    /**
+     * Set account
+     *
+     * @param \Elcweb\AccountingBundle\Entity\Account $account
+     * @return Entry
+     */
+    public function setAccount(Account $account)
+    {
+        $this->account = $account;
+    
+        return $this;
+    }
+
+    /**
+     * Get account
+     *
+     * @return \Elcweb\AccountingBundle\Entity\Account 
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
 }

@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Transaction
  *
- * @ORM\Table
+ * @ORM\Table(name="acc_transactions")
  * @ORM\Entity(repositoryClass="TransactionRepository")
  *
  */
@@ -69,6 +69,11 @@ class Transaction
      * @ORM\OneToMany(targetEntity="Transaction", mappedBy="parent")
      */
     protected $childrens;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Entry", mappedBy="transaction", cascade={"persist"})
+     */
+    protected $entries;
 
     /**
      * Get id
@@ -239,5 +244,29 @@ class Transaction
     public function getChildrens()
     {
         return $this->childrens;
+    }
+
+    /**
+     * Get entries
+     *
+     * @return Entry[]
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+
+    /**
+     * Add entry
+     *
+     * @param Entry $entry
+     * @return Entry
+     */
+    public function addEntry(Entry $entry)
+    {
+        $entry->setTransaction($this);
+        $this->entries[] = $entry;
+
+        return $this;
     }
 }

@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * AccountType
  *
- * @ORM\Table
+ * @ORM\Table(name="acc_account_types")
  * @ORM\Entity()
  *
  */
