@@ -24,6 +24,7 @@ class TestController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        /*
         $tm = $this->get('elcweb.accounting.manager.transaction');
 
         $entries = array(
@@ -44,6 +45,12 @@ class TestController extends Controller
         );
 
         $tm->create('P', $entries);
+        */
+        //$tm = $this->get('mercantile.accounting.manager.transaction');
+        //$tm->create('P', 123, 'comment1');
+        $am = $this->get('elcweb.accounting.manager.account');
+        $tm = $this->get('elcweb.accounting.manager.transaction');
+        //$tm->get(7);
 
         return array('accounts' => array());
     }
