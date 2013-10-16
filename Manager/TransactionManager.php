@@ -34,7 +34,7 @@ class TransactionManager
             )
         );
     */
-    public function create($type, $entries = array())
+    public function create($type, $entries = array(), $comment = null, $parentId = null)
     {
         $transactionType = $this->em->getRepository('ElcwebAccountingBundle:TransactionType')->find($type);
         if (!$transactionType) {
@@ -48,6 +48,7 @@ class TransactionManager
 
         $transaction = new Transaction;
         $transaction->setTransactionType($transactionType);
+        $transaction->setComment(null);
 
         foreach ($entries as $elem) {
             $account = $this->em->getRepository('ElcwebAccountingBundle:Account')->findOneByCode($elem['code']);
@@ -65,6 +66,10 @@ class TransactionManager
             $transaction->addEntry($entry);
         }
 
+        if ($parentId) {
+            $transaction->setParent($this->get($parentId));
+        }
+
         $this->em->persist($transaction);
         $this->em->flush();
     }
@@ -77,5 +82,39 @@ class TransactionManager
         }
 
         return ($sum == 0);
+    }
+
+    public function reverse($transactionId, $comment = null)
+    {
+        $transactionOld = $this->get($transactionId);
+
+        // todo: check if not already reversed.
+        
+        if (!$comment) {
+            $comment = 'Transaction reversal for transaction ID #'.$transactionId;
+        }
+        
+        $entries = array();
+        foreach ($transactionOld->getEntries() as $oldEntry) {
+            $entry = array(
+                'code'    => $oldEntry->getAccount()->getCode(),
+                'amount'  => $oldEntry->getAmount() * -1,
+                'comment' => $comment
+            );
+
+            $entries[] = $entry;
+        }
+
+        $this->create('R', $entries, $comment, $transactionId);
+    }
+
+    protected function get($transactionId)
+    {
+        $transaction = $this->em->getRepository('ElcwebAccountingBundle:Transaction')->find($transactionId);
+        if (!$transaction) {
+            // todo: throw error
+        }
+
+        return $transaction;
     }
 }
