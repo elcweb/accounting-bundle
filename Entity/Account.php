@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="acc_accounts")
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
+ * @ORM\Entity(repositoryClass="AccountRepository")
  *
  */
 class Account implements Taggable
