@@ -81,6 +81,11 @@ class Transaction implements Taggable
         return 'accounting_transaction_tag';
     }
 
+    public function getTaggableId()
+    {
+        return $this->getId();
+    }
+
     /**
      * Get id
      *
