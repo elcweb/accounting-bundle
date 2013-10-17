@@ -38,7 +38,7 @@ class Transaction implements Taggable
      * @ORM\Column( type="date")
      * @Gedmo\Timestampable(on="create")
      */
-    protected $debitDate;
+    protected $date;
 
     /**
      * @var Transaction
@@ -127,26 +127,26 @@ class Transaction implements Taggable
     }
 
     /**
-     * Set debitDate
+     * Set date
      *
-     * @param \DateTime $debitDate
+     * @param \DateTime $date
      * @return Transaction
      */
-    public function setDebitDate($debitDate)
+    public function setdate($date)
     {
-        $this->debitDate = $debitDate;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get debitDate
+     * Get date
      *
      * @return \DateTime
      */
-    public function getDebitDate()
+    public function getdate()
     {
-        return $this->debitDate;
+        return $this->date;
     }
 
     /**
