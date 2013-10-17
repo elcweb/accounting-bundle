@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\Taggable\Taggable;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Transaction
