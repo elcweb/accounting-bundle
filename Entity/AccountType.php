@@ -32,4 +32,24 @@ class AccountType
      * @ORM\Column(type="string", length=1)
      */
     private $value;
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
 }
