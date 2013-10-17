@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use DoctrineExtensions\Taggable\Taggable;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Transaction
@@ -14,7 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="TransactionRepository")
  *
  */
-class Transaction
+class Transaction implements Taggable
 {
     /**
      * @var integer
@@ -24,15 +26,6 @@ class Transaction
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\ManyToOne(targetEntity="TransactionType", inversedBy="transactions", fetch="EAGER")
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
-     */
-    protected $transactionType;
-
 
     /**
      * @var \DateTime
@@ -70,10 +63,29 @@ class Transaction
      */
     protected $childrens;
 
+    private $tags;
+
     /**
      * @ORM\OneToMany(targetEntity="Entry", mappedBy="transaction", cascade={"persist"})
      */
     protected $entries;
+
+    public function __construct()
+    {
+        $this->entries = $this->entries ?: new ArrayCollection();
+    }
+
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
+    }
+
+    public function getTaggableType()
+    {
+        return 'accounting_transaction_tag';
+    }
 
     /**
      * Get id
@@ -152,29 +164,6 @@ class Transaction
     public function getComment()
     {
         return $this->comment;
-    }
-
-    /**
-     * Set transactionType
-     *
-     * @param TransactionType $transactionType
-     * @return Transaction
-     */
-    public function setTransactionType(TransactionType $transactionType)
-    {
-        $this->transactionType = $transactionType;
-
-        return $this;
-    }
-
-    /**
-     * Get transactionType
-     *
-     * @return TransactionType
-     */
-    public function getTransactionType()
-    {
-        return $this->transactionType;
     }
 
     /**
