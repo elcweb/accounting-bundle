@@ -76,6 +76,14 @@ class Account implements Taggable
      */
     private $entries;
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="AccountType", inversedBy="accounts")
+     * @ORM\JoinColumn( referencedColumnName="id", nullable=false)
+     */
+    protected $type;
+
     private $tags;
 
     // todo: currency
@@ -172,7 +180,17 @@ class Account implements Taggable
     {
         return $this->ref;
     }
-    
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
     public function __toString()
     {
         return (string) $this->getName();

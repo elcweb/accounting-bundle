@@ -33,6 +33,11 @@ class AccountType
      */
     private $value;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Account", mappedBy="type")
+     */
+    private $accounts;
+
     public function setName($name)
     {
         $this->name = $name;
