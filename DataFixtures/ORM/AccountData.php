@@ -32,7 +32,7 @@ class AccountData extends AbstractFixture implements OrderedFixtureInterface, Co
     {
         $root = new Account();
         $root->setName('Root');
-        $root->setCode('root');
+        $root->setSlug('root');
         $manager->persist($root);
 
         // Assets
@@ -54,7 +54,7 @@ class AccountData extends AbstractFixture implements OrderedFixtureInterface, Co
                 $a21100 = new Account();
                 $a21100->setName('Bank 1');
                 $a21100->setParent($a21000);
-                $a21100->setCode('bank1');
+                $a21100->setSlug('bank1');
                 $manager->persist($a21100);
 
         // Equity
@@ -87,7 +87,7 @@ class AccountData extends AbstractFixture implements OrderedFixtureInterface, Co
                     $a42110 = new Account();
                     $a42110->setName('Interest');
                     $a42110->setParent($a42100);
-                    $a42110->setCode('interest');
+                    $a42110->setSlug('interest');
                     $manager->persist($a42110);
 
                     $a42120 = new Account();
@@ -98,19 +98,19 @@ class AccountData extends AbstractFixture implements OrderedFixtureInterface, Co
                         $a42121 = new Account();
                         $a42121->setName('Origination');
                         $a42121->setParent($a42120);
-                        $a42121->setCode('fee-origination');
+                        $a42121->setSlug('fee-origination');
                         $manager->persist($a42121);
 
                         $a42122 = new Account();
                         $a42122->setName('Platform');
                         $a42122->setParent($a42120);
-                        $a42122->setCode('fee-platform');
+                        $a42122->setSlug('fee-platform');
                         $manager->persist($a42122);
 
                         $a42123 = new Account();
                         $a42123->setName('Risk');
                         $a42123->setParent($a42120);
-                        $a42123->setCode('fee-risk');
+                        $a42123->setSlug('fee-risk');
                         $manager->persist($a42123);
 
                 $a48700 = new Account();
@@ -121,13 +121,13 @@ class AccountData extends AbstractFixture implements OrderedFixtureInterface, Co
                     $a48710 = new Account();
                     $a48710->setName('Wire Fee');
                     $a48710->setParent($a48700);
-                    $a48710->setCode('fee-wire');
+                    $a48710->setSlug('fee-wire');
                     $manager->persist($a48710);
 
                     $a48720 = new Account();
                     $a48720->setName('Return Fee');
                     $a48720->setParent($a48700);
-                    $a48720->setCode('fee-return');
+                    $a48720->setSlug('fee-return');
                     $manager->persist($a48720);
 
             $a67000 = new Account();
