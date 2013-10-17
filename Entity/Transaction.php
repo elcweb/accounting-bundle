@@ -65,6 +65,13 @@ class Transaction implements Taggable
     private $tags;
 
     /**
+     * @var string $ref
+     *
+     * @ORM\Column(type="string", length=25, unique=true, nullable=true)
+     */
+    private $ref;
+
+    /**
      * @ORM\OneToMany(targetEntity="Entry", mappedBy="transaction", cascade={"persist"})
      */
     protected $entries;
@@ -186,6 +193,16 @@ class Transaction implements Taggable
     public function getParent()
     {
         return $this->parent;
+    }
+
+    public function setRef($ref)
+    {
+        $this->ref = $ref;
+    }
+
+    public function getRef()
+    {
+        return $this->ref;
     }
 
     public function __toString()
