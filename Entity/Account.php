@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validation\Constraints AS Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Account
@@ -31,8 +31,9 @@ class Account implements Taggable
      * @ORM\Column(type="string", length=64)
      *
      * @Assert\NotBlank()
+     * @Assert\Length(min = "3")
      */
-    private $name;
+    protected $name;
 
     /**
      * @Gedmo\TreeLeft
