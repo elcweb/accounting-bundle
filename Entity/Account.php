@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validation\Constraints AS Assert;
 
 /**
  * Account
@@ -33,25 +34,25 @@ class Account implements Taggable
 
     /**
      * @Gedmo\TreeLeft
-     * @ORM\Column(name="lft", type="integer")
+     * @ORM\Column(type="integer")
      */
     private $lft;
 
     /**
      * @Gedmo\TreeLevel
-     * @ORM\Column(name="lvl", type="integer")
+     * @ORM\Column(type="integer")
      */
     private $lvl;
 
     /**
      * @Gedmo\TreeRight
-     * @ORM\Column(name="rgt", type="integer")
+     * @ORM\Column(type="integer")
      */
     private $rgt;
 
     /**
      * @Gedmo\TreeRoot
-     * @ORM\Column(name="root", type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $root;
 
@@ -78,7 +79,7 @@ class Account implements Taggable
     /**
      * @var string $slug
      *
-     * @ORM\Column(type="string", length=25, unique=true, nullable=true)
+     * @ORM\Column(type="string", unique=true, nullable=true)
      */
     private $slug;
 
