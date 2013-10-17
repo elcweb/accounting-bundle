@@ -29,6 +29,8 @@ class Account implements Taggable
 
     /**
      * @ORM\Column(type="string", length=64)
+     *
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -76,10 +78,17 @@ class Account implements Taggable
 
     private $tags;
 
+    // todo: currency
+    /**
+     * @Assert\Currency
+     */
+    protected $currency = 'CAD';
+
     /**
      * @var string $slug
      *
      * @ORM\Column(type="string", unique=true, nullable=true)
+     * @Assert\Regex("/^\w+/")
      */
     private $slug;
 
@@ -87,6 +96,8 @@ class Account implements Taggable
      * @var string $ref
      *
      * @ORM\Column(type="string", length=25, unique=true, nullable=true)
+     *
+     * @Assert\Type(type="integer")
      */
     private $ref;
 
