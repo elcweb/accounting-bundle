@@ -19,7 +19,6 @@ class AccountType
      *
      * @ORM\Column(type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 
@@ -38,19 +37,29 @@ class AccountType
      */
     private $accounts;
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $id;
+    }
+
     public function setName($name)
     {
         $this->name = $name;
     }
 
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
     public function getName()
     {
         return $this->name;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
     }
 
     public function getValue()

@@ -2,14 +2,15 @@
 
 namespace Elcweb\AccountingBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Elcweb\AccountingBundle\Entity\AccountType;
 
-class AccountTypeData implements FixtureInterface, ContainerAwareInterface
+class AccountTypeData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var ContainerInterface
@@ -30,16 +31,30 @@ class AccountTypeData implements FixtureInterface, ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
         
-        $type = new AccountType();
-        $type->setName('Debit');
-        $type->setValue('+');
-        $manager->persist($type);
+        $typeDebit = new AccountType();
+        $typeDebit->setId(1);
+        $typeDebit->setName('Debit');
+        $typeDebit->setValue('+');
+        $manager->persist($typeDebit);
 
-        $type = new AccountType();
-        $type->setName('Credit');
-        $type->setValue('-');
-        $manager->persist($type);
+        $typeCredit = new AccountType();
+        $typeCredit->setId(2);
+        $typeCredit->setName('Credit');
+        $typeCredit->setValue('-');
+        $manager->persist($typeCredit);
 
         $manager->flush();
+
+        // store reference to admin role for Account relation to AccountType
+        $this->addReference('typeDebit', $typeDebit);
+        $this->addReference('typeCredit', $typeCredit);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrder()
+    {
+        return 0;
     }
 }
