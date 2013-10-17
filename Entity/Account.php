@@ -143,4 +143,14 @@ class Account implements Taggable
     {
         return (string) $this->getName();
     }
+
+    public function getBalance()
+    {
+        $balance = 0;
+        foreach ($this->entries AS $entry) {
+            $balance += $entry->getAmount();
+        }
+        
+        return $balance;
+    }
 }
