@@ -76,11 +76,18 @@ class Account implements Taggable
     private $tags;
 
     /**
-     * @var string $code
+     * @var string $slug
      *
      * @ORM\Column(type="string", length=25, unique=true, nullable=true)
      */
-    private $code;
+    private $slug;
+
+    /**
+     * @var string $ref
+     *
+     * @ORM\Column(type="string", length=25, unique=true, nullable=true)
+     */
+    private $ref;
 
     public function __construct()
     {
@@ -134,16 +141,26 @@ class Account implements Taggable
         return $this->entries;
     }
 
-    public function setCode($code)
+    public function setSlug($slug)
     {
-        $this->code = $code;
+        $this->slug = $slug;
     }
 
-    public function getCode()
+    public function getSlug()
     {
-        return $this->code;
+        return $this->slug;
     }
 
+    public function setRef($ref)
+    {
+        $this->ref = $ref;
+    }
+
+    public function getRef()
+    {
+        return $this->ref;
+    }
+    
     public function __toString()
     {
         return (string) $this->getName();
