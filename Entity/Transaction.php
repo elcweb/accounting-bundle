@@ -69,11 +69,6 @@ class Transaction implements Taggable
      */
     protected $entries;
 
-    public function __construct()
-    {
-        $this->entries = $this->entries ?: new ArrayCollection();
-    }
-
     public function getTags()
     {
         $this->tags = $this->tags ?: new ArrayCollection();
@@ -199,6 +194,7 @@ class Transaction implements Taggable
     public function __construct()
     {
         $this->childrens = new ArrayCollection();
+        $this->entries   = $this->entries ?: new ArrayCollection();
     }
 
     /**
