@@ -82,6 +82,11 @@ class Account implements Taggable
      */
     private $code;
 
+    public function __construct()
+    {
+        $this->entries = $this->entries ?: new ArrayCollection();
+    }
+
     public function getTags()
     {
         $this->tags = $this->tags ?: new ArrayCollection();
