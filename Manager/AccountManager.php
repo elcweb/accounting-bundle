@@ -49,6 +49,10 @@ class AccountManager
 
     public function findByCode() {}
 
+    /**
+     *
+     * @return array
+     */
     public function findByTag($tag)
     {
         // get Tag
@@ -57,7 +61,11 @@ class AccountManager
         // find all article ids matching a particular query
         $ids = $tagRepo->getResourceIdsForTag('accounting_account_tag', $tag);
 
-        $accounts = $this->em->getRepository('ElcwebAccountingBundle:Account')->findById($ids);
+        $accounts = array();
+
+        if (count($ids) > 0) {
+            $accounts = $this->em->getRepository('ElcwebAccountingBundle:Account')->findById($ids);
+        }
 
         return $accounts;
     }
