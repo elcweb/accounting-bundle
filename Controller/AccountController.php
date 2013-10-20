@@ -26,7 +26,9 @@ class AccountController extends Controller
 
         $tree = $em->getRepository('ElcwebAccountingBundle:Account')->childrenHierarchy();
 
-        return array('tree' => $tree);
+        $accounts = $em->getRepository('ElcwebAccountingBundle:Account')->findAll();
+
+        return array('tree' => $tree, 'accounts' => $accounts);
     }
 
     /**
