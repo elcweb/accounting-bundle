@@ -18,9 +18,10 @@ class AccountManager
         $this->tm = $tm;
     }
 
-    public function create($name, $code, $tags = array(), $parent = null)
+    public function create($name, $slug, $tags = array(), $parent = null)
     {
-        $parentAccount = $this->em->getRepository('ElcwebAccountingBundle:Account')->findOneByCode($parent);
+        $parentAccount = $this->em->getRepository('ElcwebAccountingBundle:Account')->findOneBySlug($parent);
+        $type = $this->em->getRepository('ElcwebAccountingBundle:AccountType')->find(1);
 
         if (!$parentAccount) {
             // todo: throw error
@@ -33,7 +34,8 @@ class AccountManager
             $account = new Account;
             $account->setParent($parentAccount);
             $account->setName($name);
-            $account->setCode($code);
+            $account->setSlug($slug);
+            $account->setType($type);
 
             foreach ($tags as $tag) {
                 $tag = $this->tm->loadOrCreateTag($tag);
