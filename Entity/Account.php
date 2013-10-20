@@ -96,7 +96,8 @@ class Account implements Taggable
     /**
      * @var string $slug
      *
-     * @ORM\Column(type="string", unique=true, nullable=true)
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", unique=true)
      * @Assert\Regex("/^\w+/")
      */
     private $slug;
