@@ -21,6 +21,8 @@
                         <th>Slug</th>
                         <th>Parent</th>
                         <th>Amount</th>
+                        <th>Total amount</th>
+                        <th>Absolute amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +33,8 @@
                             <td>{{ account.slug }}</td>
                             <td>{% if account.parent.name is defined %}<a href="{{ path('elcweb_accounting_account_show', { id: account.parent.id }) }}">{{ account.parent.name }}</a>{% endif %}</td>
                             <td>$ {{ account.balance }}</td>
+                            <td>$ {{ account.balanceChildren }}</td>
+                            <td>$ {{ account.sumChildren }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

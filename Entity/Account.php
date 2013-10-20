@@ -158,6 +158,12 @@ class Account implements Taggable
         return $this->parent;
     }
 
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+
     public function getEntries()
     {
         return $this->entries;
@@ -200,11 +206,41 @@ class Account implements Taggable
 
     public function getBalance()
     {
+        $sign = (int) ($this->getType()->getValue()."1");
+        return $this->getSum() * $sign;
+    }
+
+    public function getBalanceChildren()
+    {
+        $balance = $this->getBalance();
+        foreach ($this->getChildren() AS $child) {
+            $balance += $child->getBalanceChildren();
+        }
+
+        return $balance;
+    }
+
+    public function getSum()
+    {
         $balance = 0;
-        foreach ($this->entries AS $entry) {
+        foreach ($this->getEntries() AS $entry) {
             $balance += $entry->getAmount();
         }
         
         return $balance;
     }
+
+    public function getSumChildren()
+    {
+        $balance = $this->getSum();
+        foreach ($this->getChildren() AS $child) {
+            $balance += $child->getSumChildren();
+        }
+
+        return $balance;
+    }
+
+
+
+
 }

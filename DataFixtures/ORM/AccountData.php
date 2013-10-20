@@ -50,6 +50,26 @@ class AccountData extends AbstractFixture implements OrderedFixtureInterface, Co
             $manager->persist($assets);
             $this->addReference('account_assets', $assets);
 
+            // Assets : Cash
+            $cash = new Account();
+            $cash->setName('Cash');
+            $cash->setParent($assets);
+            $cash->setType(
+                $this->getReference('typeDebit')
+            );
+            $manager->persist($cash);
+            $this->addReference('account_cash', $cash);
+
+            // Assets : Accounts Receivable 
+            $receivable = new Account();
+            $receivable->setName('Accounts Receivable');
+            $receivable->setParent($assets);
+            $receivable->setType(
+                $this->getReference('typeDebit')
+            );
+            $manager->persist($receivable);
+            $this->addReference('account_receivable', $receivable);
+
             // liability / Passif
             $liability = new Account();
             $liability->setName('Liability');
@@ -60,6 +80,17 @@ class AccountData extends AbstractFixture implements OrderedFixtureInterface, Co
             );
             $manager->persist($liability);
             $this->addReference('account_liability', $liability);
+
+            // liability : Accounts Payable 
+            $payable = new Account();
+            $payable->setName('Accounts Payable');
+            $payable->setParent($liability);
+            $payable->setType(2);
+            $payable->setType(
+                $this->getReference('typeCredit')
+            );
+            $manager->persist($payable);
+            $this->addReference('account_payable', $payable);
 
             // Equity / Avoir
             $equity = new Account();

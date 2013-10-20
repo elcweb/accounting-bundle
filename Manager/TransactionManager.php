@@ -38,7 +38,7 @@ class TransactionManager
     public function create($entries = array(), $tags = array(), $comment = null, $parentId = null)
     {
         // check integrity
-        if (!$this->checkIntegrity($entries)) {
+        if (!$this->checkIntegritySum($entries)) {
             // todo: throw error
         }
 
@@ -77,7 +77,7 @@ class TransactionManager
         $this->tagManager->saveTagging($transaction);
     }
 
-    protected function checkIntegrity($entries)
+    protected function checkIntegritySum($entries)
     {
         $sum = 0;
         foreach ($entries as $entry) {
