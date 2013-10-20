@@ -12,12 +12,13 @@ use Elcweb\AccountingBundle\Entity\Transaction;
 
 class TransactionManager
 {
-    protected $em, $am;
+    protected $em, $am, $tagManager;
 
-    public function __construct(EntityManager $em, AccountManager $am)
+    public function __construct(EntityManager $em, TagManager $tagManager, AccountManager $am)
     {
         $this->em = $em;
         $this->am = $am;
+        $this->tagManager = $tagManager;
     }
 
     /*
@@ -34,24 +35,18 @@ class TransactionManager
             )
         );
     */
-    public function create($type, $entries = array(), $comment = null, $parentId = null)
+    public function create($entries = array(), $tags = array(), $comment = null, $parentId = null)
     {
-        $transactionType = $this->em->getRepository('ElcwebAccountingBundle:TransactionType')->find($type);
-        if (!$transactionType) {
-            // todo: throw error
-        }
-
         // check integrity
         if (!$this->checkIntegrity($entries)) {
             // todo: throw error
         }
 
         $transaction = new Transaction;
-        $transaction->setTransactionType($transactionType);
         $transaction->setComment(null);
 
         foreach ($entries as $elem) {
-            $account = $this->em->getRepository('ElcwebAccountingBundle:Account')->findOneByCode($elem['code']);
+            $account = $this->em->getRepository('ElcwebAccountingBundle:Account')->findOneBySlug($elem['slug']);
             if (!$account) {
                 // todo: throw error
             }
@@ -66,12 +61,20 @@ class TransactionManager
             $transaction->addEntry($entry);
         }
 
+        // Tags
+        foreach ($tags as $tag) {
+            $tag = $this->tagManager->loadOrCreateTag($tag);
+            $this->tagManager->addTag($tag, $transaction);
+        }
+
+        // Parent transaction
         if ($parentId) {
             $transaction->setParent($this->get($parentId));
         }
 
         $this->em->persist($transaction);
         $this->em->flush();
+        $this->tagManager->saveTagging($transaction);
     }
 
     protected function checkIntegrity($entries)

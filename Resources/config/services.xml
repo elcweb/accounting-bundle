@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="elcweb.accounting.manager.account.class">Elcweb\AccountingBundle\Manager\AccountManager</parameter>
         <parameter key="elcweb.accounting.manager.transaction.class">Elcweb\AccountingBundle\Manager\TransactionManager</parameter>
+        <parameter key="elcweb.accounting.listener.transaction.class">Elcweb\AccountingBundle\EventListener\TransactionListener</parameter>
     </parameters>
 
     <services>
@@ -16,7 +17,13 @@
         </service>
         <service id="elcweb.accounting.manager.transaction" class="%elcweb.accounting.manager.transaction.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="fpn_tag.tag_manager" />
             <argument type="service" id="elcweb.accounting.manager.account" />
+        </service>
+
+        <service id="elcweb.accounting.listener.transaction" class="%elcweb.accounting.listener.transaction.class%">
+            <tag name="kernel.event_listener" event="elcweb.transaction.create" method="create"/>
+            <argument type="service" id="elcweb.accounting.manager.transaction" />
         </service>
     </services>
 
