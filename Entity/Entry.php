@@ -4,13 +4,15 @@ namespace Elcweb\AccountingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Entry
  *
  * @ORM\Table(name="acc_entries")
  * @ORM\Entity()
- *
+ * 
+ * @Serializer\ExclusionPolicy("all")
  */
 class Entry
 {
@@ -20,6 +22,8 @@ class Entry
      * @ORM\Column( type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @Serializer\Expose
      */
     protected $id;
 
@@ -35,6 +39,8 @@ class Entry
      * @var \DateTime
      * @ORM\Column( type="datetime")
      * @Gedmo\Timestampable(on="create")
+     *
+     * @Serializer\Expose
      */
     protected $createdAt;
 
@@ -43,6 +49,8 @@ class Entry
      *
      * @ORM\ManyToOne(targetEntity="Account", inversedBy="entries")
      * @ORM\JoinColumn( referencedColumnName="id", nullable=false)
+     *
+     * @Serializer\Expose
      */
     protected $account;
 
@@ -50,6 +58,8 @@ class Entry
      * @var float
      *
      * @ORM\Column(type="decimal", scale=2)
+     *
+     * @Serializer\Expose
      */
     protected $amount;
 
@@ -57,6 +67,8 @@ class Entry
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     *
+     * @Serializer\Expose
      */
     protected $comment;
 

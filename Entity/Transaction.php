@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\Taggable\Taggable;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Transaction
@@ -15,6 +16,7 @@ use DoctrineExtensions\Taggable\Taggable;
  * @ORM\Entity(repositoryClass="TransactionRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  *
+ * @Serializer\ExclusionPolicy("all")
  */
 class Transaction implements Taggable
 {
@@ -24,6 +26,8 @@ class Transaction implements Taggable
      * @ORM\Column( type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @Serializer\Expose
      */
     protected $id;
 
@@ -31,6 +35,8 @@ class Transaction implements Taggable
      * @var \DateTime
      * @ORM\Column( type="datetime")
      * @Gedmo\Timestampable(on="create")
+     *
+     * @Serializer\Expose
      */
     protected $createdAt;
 
@@ -38,6 +44,8 @@ class Transaction implements Taggable
      * @var \DateTime
      * @ORM\Column( type="date")
      * @Gedmo\Timestampable(on="create")
+     *
+     * @Serializer\Expose
      */
     protected $date;
 
@@ -46,6 +54,8 @@ class Transaction implements Taggable
      *
      * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="childrens")
      * @ORM\JoinColumn( referencedColumnName="id",onDelete="CASCADE")
+     *
+     * @Serializer\Expose
      */
     protected $parent;
 
@@ -53,6 +63,8 @@ class Transaction implements Taggable
      * @var string
      *
      * @ORM\Column(type="string", length=80, nullable=true)
+     *
+     * @Serializer\Expose
      */
     protected $comment;
 
@@ -63,12 +75,18 @@ class Transaction implements Taggable
      */
     protected $childrens;
 
+    /**
+     *
+     * @Serializer\Expose
+     */
     private $tags;
 
     /**
      * @var string $ref
      *
      * @ORM\Column(type="string", length=25, unique=true, nullable=true)
+     *
+     * @Serializer\Expose
      */
     private $ref;
 

@@ -7,6 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Account
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="acc_accounts")
  * @ORM\Entity(repositoryClass="AccountRepository")
  *
+ * @Serializer\ExclusionPolicy("all")
  */
 class Account implements Taggable
 {
@@ -24,6 +26,8 @@ class Account implements Taggable
      * @ORM\Column(type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @Serializer\Expose
      */
     protected $id;
 
@@ -32,6 +36,8 @@ class Account implements Taggable
      *
      * @Assert\NotBlank()
      * @Assert\Length(min = "3")
+     *
+     * @Serializer\Expose
      */
     protected $name;
 
@@ -63,6 +69,8 @@ class Account implements Taggable
      * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="Account", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     *
+     * @Serializer\Expose
      */
     private $parent;
 
@@ -82,14 +90,22 @@ class Account implements Taggable
      *
      * @ORM\ManyToOne(targetEntity="AccountType", inversedBy="accounts")
      * @ORM\JoinColumn( referencedColumnName="id", nullable=false)
+     *
+     * @Serializer\Expose
      */
     protected $type;
 
+    /**
+     *
+     * @Serializer\Expose
+     */
     private $tags;
 
     // todo: currency
     /**
      * @Assert\Currency
+     *
+     * @Serializer\Expose
      */
     protected $currency = 'CAD';
 
@@ -99,6 +115,8 @@ class Account implements Taggable
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", unique=true)
      * @Assert\Regex("/^\w+/")
+     *
+     * @Serializer\Expose
      */
     private $slug;
 
@@ -108,6 +126,8 @@ class Account implements Taggable
      * @ORM\Column(type="string", length=25, unique=true, nullable=true)
      *
      * @Assert\Type(type="integer")
+     *
+     * @Serializer\Expose
      */
     private $ref;
 

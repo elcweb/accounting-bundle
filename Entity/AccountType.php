@@ -4,12 +4,15 @@ namespace Elcweb\AccountingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * AccountType
  *
  * @ORM\Table(name="acc_account_types")
  * @ORM\Entity()
+ *
+ * @Serializer\ExclusionPolicy("all")
  *
  */
 class AccountType
@@ -19,16 +22,22 @@ class AccountType
      *
      * @ORM\Column(type="integer", nullable=false)
      * @ORM\Id
+     *
+     * @Serializer\Expose
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=64)
+     *
+     * @Serializer\Expose
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=1)
+     *
+     * @Serializer\Expose
      */
     private $value;
 
