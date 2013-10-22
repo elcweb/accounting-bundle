@@ -13,6 +13,7 @@ use DoctrineExtensions\Taggable\Taggable;
  *
  * @ORM\Table(name="acc_transactions")
  * @ORM\Entity(repositoryClass="TransactionRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
  *
  */
 class Transaction implements Taggable
@@ -207,7 +208,7 @@ class Transaction implements Taggable
 
     public function __toString()
     {
-        return '' . $this->getId() . '';
+        return ''.$this->getId().'';
     }
 
     /**
