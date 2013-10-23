@@ -30,7 +30,7 @@ class Entry
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="entries")
+     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="entries", cascade={"persist"})
      * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     protected $transaction;
@@ -196,5 +196,13 @@ class Entry
     public function getAccount()
     {
         return $this->account;
+    }
+
+    public function __clone()
+    {
+        if ($this->id) {
+            $this->id = null;
+            $this->transaction = null;
+        }
     }
 }

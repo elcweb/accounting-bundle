@@ -92,6 +92,8 @@ class Transaction implements Taggable
 
     /**
      * @ORM\OneToMany(targetEntity="Entry", mappedBy="transaction", cascade={"persist"})
+     *
+     * @Serializer\Expose
      */
     protected $entries;
 
@@ -293,5 +295,29 @@ class Transaction implements Taggable
         $this->entries[] = $entry;
 
         return $this;
+    }
+
+    /**
+     * Remove entry
+     *
+     * @param Entry $entry
+     */
+    public function removeEntry(Entry $entry)
+    {
+        $this->entries->removeElement($entry);
+    }
+
+    public function __clone()
+    {
+        if ($this->id) {
+            $this->id = null;
+
+            $entries = $this->getEntries();
+            foreach ($entries as $entry) {
+                $clone = clone $entry;
+                $this->removeEntry($entry);
+                $this->addEntry($clone);
+            }
+        }
     }
 }
