@@ -87,30 +87,6 @@ class TransactionManager
         return ($sum == 0);
     }
 
-    public function reverse($transactionId, $comment = null)
-    {
-        $transactionOld = $this->get($transactionId);
-
-        // todo: check if not already reversed.
-        
-        if (!$comment) {
-            $comment = 'Transaction reversal for transaction ID #'.$transactionId;
-        }
-        
-        $entries = array();
-        foreach ($transactionOld->getEntries() as $oldEntry) {
-            $entry = array(
-                'code'    => $oldEntry->getAccount()->getCode(),
-                'amount'  => $oldEntry->getAmount() * -1,
-                'comment' => $comment
-            );
-
-            $entries[] = $entry;
-        }
-
-        $this->create('R', $entries, $comment, $transactionId);
-    }
-
     protected function get($transactionId)
     {
         $transaction = $this->em->getRepository('ElcwebAccountingBundle:Transaction')->find($transactionId);
