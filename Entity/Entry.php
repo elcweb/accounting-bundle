@@ -10,8 +10,8 @@ use JMS\Serializer\Annotation as Serializer;
  * Entry
  *
  * @ORM\Table(name="acc_entries")
- * @ORM\Entity()
- * 
+ * @ORM\Entity(repositoryClass="EntryRepository")
+ *
  * @Serializer\ExclusionPolicy("all")
  */
 class Entry
@@ -76,7 +76,7 @@ class Entry
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -92,14 +92,14 @@ class Entry
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -115,14 +115,14 @@ class Entry
     public function setAmount($amount)
     {
         $this->amount = $amount;
-    
+
         return $this;
     }
 
     /**
      * Get amount
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -138,14 +138,14 @@ class Entry
     public function setComment($comment)
     {
         $this->comment = $comment;
-    
+
         return $this;
     }
 
     /**
      * Get comment
      *
-     * @return string 
+     * @return string
      */
     public function getComment()
     {
@@ -161,14 +161,14 @@ class Entry
     public function setTransaction(Transaction $transaction)
     {
         $this->transaction = $transaction;
-    
+
         return $this;
     }
 
     /**
      * Get transaction
      *
-     * @return \Elcweb\AccountingBundle\Entity\Transaction 
+     * @return \Elcweb\AccountingBundle\Entity\Transaction
      */
     public function getTransaction()
     {
@@ -184,14 +184,14 @@ class Entry
     public function setAccount(Account $account)
     {
         $this->account = $account;
-    
+
         return $this;
     }
 
     /**
      * Get account
      *
-     * @return \Elcweb\AccountingBundle\Entity\Account 
+     * @return \Elcweb\AccountingBundle\Entity\Account
      */
     public function getAccount()
     {
