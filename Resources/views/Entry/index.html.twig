@@ -1,13 +1,7 @@
 {% extends '::layout.html.twig' %}
 
 {% block breadcrumb %}
-    <li>
-        <a href="{{ path('elcweb_accounting_account_index') }}">Accounts</a>
-    </li>
-    <li>
-        <a href="{{ path('elcweb_accounting_account_show',{'id': account.parent.id}) }}">{{ account.parent }}</a>
-    </li>
-    <li class="active">{{ account.name }}</li>
+    <li class="active">Entries</li>
 {% endblock breadcrumb %}
 
 {% block content %}
@@ -15,31 +9,34 @@
         <table class="table tablesorter table-striped table-condensed">
             <thead>
             <tr>
-                <th>Entry ID</th>
+                <th>ID</th>
                 <th>Transaction ID</th>
+                <th>Transaction Parent ID</th>
+                <th>Trans Date</th>
+                <th>Account</th>
+                <th>Slug</th>
                 <th>Amount</th>
+                <th>Comment</th>
             </tr>
             </thead>
             <tbody>
-            {% set total = 0 %}
-            {% for entry in account.entries %}
+            {% for entry in entries %}
                 <tr>
                     <td>{{ entry.id }}</td>
                     <td>
                         <a href="{{ path('elcweb_accounting_transaction_show', { id: entry.transaction.id }) }}">{{ entry.transaction.id }}</a>
                     </td>
+                    <td>{{ entry.transaction.parent }}</td>
+                    <td>{{ entry.transaction.date|date('Y-m-d') }}</td>
+                    <td>
+                        <a href="{{ path('elcweb_accounting_account_show', { id: entry.account.id }) }}">{{ entry.account }}</a>
+                    </td>
+                    <td>{{ entry.account.slug }}</td>
                     <td>{{ entry.amount }}</td>
+                    <td>{{ entry.comment }}</td>
                 </tr>
-                {% set total = total + entry.amount %}
             {% endfor %}
             </tbody>
-            <tfoot>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>{{ total|number_format(2) }}</th>
-            </tr>
-            </tfoot>
         </table>
     {% endspaceless %}
 {% endblock %}
