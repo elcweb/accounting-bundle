@@ -2,9 +2,9 @@
 
 namespace Elcweb\AccountingBundle\Entity;
 
-use Doctrine\ORM\EntityRepository;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
-class AccountRepository extends EntityRepository
+class AccountRepository extends NestedTreeRepository
 {
 
 }
