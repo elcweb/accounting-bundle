@@ -12,7 +12,7 @@
             {% endfor %}
         </ul>
 
-        <div class="col-md-6">
+        <div>
             <table class="table table-striped table-condensed">
                 <thead>
                     <tr>
@@ -32,9 +32,9 @@
                             <td>{{ account.ref }}</td>
                             <td>{{ account.slug }}</td>
                             <td>{% if account.parent.name is defined %}<a href="{{ path('elcweb_accounting_account_show', { id: account.parent.id }) }}">{{ account.parent.name }}</a>{% endif %}</td>
-                            <td>$ {{ account.balance }}</td>
-                            <td>$ {{ account.balanceChildren }}</td>
-                            <td>$ {{ account.sumChildren }}</td>
+                            <td>$&nbsp;{{ account.balance|number_format(2) }}</td>
+                            <td>$&nbsp;{{ account.balanceChildren|number_format(2) }}</td>
+                            <td>$&nbsp;{{ account.sumChildren|number_format(2) }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
