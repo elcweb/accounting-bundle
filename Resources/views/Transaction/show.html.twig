@@ -17,10 +17,14 @@
             <tbody>
                 {% set sum = 0 %}
                 {% for entry in transaction.entries %}
-                    {% set sum = sum + entry.amount %}
+                    {% set sum = sum + (entry.amount * (entry.account.type.value ~ 1)) %}
                     <tr>
-                        <td><a href="{{ path('elcweb_accounting_account_show', { id: entry.account.id }) }}">{{ entry.account }}</a></td>
-                        <td>$ {{ entry.amount|number_format(2) }}</td>
+                        <td>
+                            {% if entry.account.parent.name is defined %}
+                                <a href="{{ path('elcweb_accounting_account_show', { id: entry.account.parent.id }) }}">{{ entry.account.parent }}</a> - 
+                            {% endif %}
+                            <a href="{{ path('elcweb_accounting_account_show', { id: entry.account.id }) }}">{{ entry.account }}</a></td>
+                        <td>{{ entry.account.type.value }} $ {{ entry.amount|number_format(2) }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
