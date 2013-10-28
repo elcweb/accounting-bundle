@@ -21,8 +21,7 @@ class AccountManager
     public function create($name, $slug, $tags = array(), $parent = null)
     {
         $parentAccount = $this->em->getRepository('ElcwebAccountingBundle:Account')->findOneBySlug($parent);
-        $type = $this->em->getRepository('ElcwebAccountingBundle:AccountType')->find(1);
-
+        
         if (!$parentAccount) {
             // todo: throw error
         }
@@ -35,7 +34,7 @@ class AccountManager
             $account->setParent($parentAccount);
             $account->setName($name);
             $account->setSlug($slug);
-            $account->setType($type);
+            $account->setType($parentAccount->getType());
 
             foreach ($tags as $tag) {
                 $tag = $this->tm->loadOrCreateTag($tag);
