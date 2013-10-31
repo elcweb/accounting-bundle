@@ -24,14 +24,16 @@ class EntryRepository extends EntityRepository
         $qb->where('a.account = :accountId');
         $qb->setParameter('accountId', $account->getId());
 
+        $qb->leftJoin('MercantileElendingAccountingBundle:ElendingTransaction', 't', 'WITH', 'a.transaction = t.id');
+
         if ($stop) {
-            $qb->andWhere($qb->expr()->lte('a.createdAt', ':endDate'));
-            $qb->setParameter('endDate', $stop->format('Y-m-d H:i:s'));
+            $qb->andWhere($qb->expr()->lte('t.date', ':endDate'));
+            $qb->setParameter('endDate', $stop->format('Y-m-d'));
         }
 
         if ($start) {
-            $qb->andWhere($qb->expr()->gte('a.createdAt', ':startDate'));
-            $qb->setParameter('startDate', $start->format('Y-m-d H:i:s'));
+            $qb->andWhere($qb->expr()->gte('t.date', ':startDate'));
+            $qb->setParameter('startDate', $start->format('Y-m-d'));
         }
 
         return $qb->getQuery()->getSingleScalarResult() + 0; // +0 is to convert string to number.

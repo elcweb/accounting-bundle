@@ -153,7 +153,7 @@ class Transaction implements Taggable
      * @param \DateTime $date
      * @return Transaction
      */
-    public function setdate($date)
+    public function setDate($date)
     {
         $this->date = $date;
 
@@ -165,7 +165,7 @@ class Transaction implements Taggable
      *
      * @return \DateTime
      */
-    public function getdate()
+    public function getDate()
     {
         return $this->date;
     }
