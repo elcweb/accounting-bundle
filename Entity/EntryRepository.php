@@ -24,17 +24,16 @@ class EntryRepository extends EntityRepository
         $qb->where('a.account = :accountId');
         $qb->setParameter('accountId', $account->getId());
 
-        //todo: implement time filtering....
         if ($stop) {
-            $qb->andWhere($qb->expr()->lte('a.debitDate', ':endday'));
-            $qb->setParameter('endday', $stop->format('Y-m-d'));
+            $qb->andWhere($qb->expr()->lte('a.createdAt', ':endDate'));
+            $qb->setParameter('endDate', $stop->format('Y-m-d H:i:s'));
         }
 
         if ($start) {
-            //$qb->andWhere($qb->expr()->lte('a.debitDate', ':startday'));
-            //$qb->setParameter('startday', $start->format('Y-m-d'));
+            $qb->andWhere($qb->expr()->gte('a.createdAt', ':startDate'));
+            $qb->setParameter('startDate', $start->format('Y-m-d H:i:s'));
         }
 
-        return $qb->getQuery()->getSingleScalarResult() + 0; // +0 is a PHP float fix.
+        return $qb->getQuery()->getSingleScalarResult() + 0; // +0 is to convert string to number.
     }
 }

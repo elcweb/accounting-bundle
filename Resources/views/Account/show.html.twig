@@ -4,9 +4,11 @@
     <li>
         <a href="{{ path('elcweb_accounting_account_index') }}">Accounts</a>
     </li>
-    <li>
-        <a href="{{ path('elcweb_accounting_account_show',{'id': account.parent.id}) }}">{{ account.parent }}</a>
-    </li>
+    {% if account.parent %}
+        <li>
+            <a href="{{ path('elcweb_accounting_account_show',{'id': account.parent.id}) }}">{{ account.parent }}</a>
+        </li>
+    {% endif %}
     <li class="active">{{ account.name }}</li>
 {% endblock breadcrumb %}
 
@@ -17,6 +19,7 @@
             <tr>
                 <th>Entry ID</th>
                 <th>Transaction ID</th>
+                <th>Date</th>
                 <th>Amount</th>
             </tr>
             </thead>
@@ -28,6 +31,7 @@
                     <td>
                         <a href="{{ path('elcweb_accounting_transaction_show', { id: entry.transaction.id }) }}">{{ entry.transaction.id }}</a>
                     </td>
+                    <td>{{ entry.createdAt|date('Y-m-d H:i:s') }}</td>
                     <td>{{ entry.amount }}</td>
                 </tr>
                 {% set total = total + entry.amount %}
@@ -35,6 +39,7 @@
             </tbody>
             <tfoot>
             <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th>{{ total|number_format(2) }}</th>
