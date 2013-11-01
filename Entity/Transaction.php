@@ -29,7 +29,7 @@ class Transaction implements Taggable
      *
      * @Serializer\Expose
      */
-    protected $id;
+    private $id;
 
     /**
      * @var \DateTime
@@ -38,7 +38,7 @@ class Transaction implements Taggable
      *
      * @Serializer\Expose
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
@@ -47,7 +47,7 @@ class Transaction implements Taggable
      *
      * @Serializer\Expose
      */
-    protected $date;
+    private $date;
 
     /**
      * @var Transaction
@@ -57,7 +57,7 @@ class Transaction implements Taggable
      *
      * @Serializer\Expose
      */
-    protected $parent;
+    private $parent;
 
     /**
      * @var string
@@ -66,14 +66,14 @@ class Transaction implements Taggable
      *
      * @Serializer\Expose
      */
-    protected $comment;
+    private $comment;
 
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Transaction", mappedBy="parent")
      */
-    protected $childrens;
+    private $childrens;
 
     /**
      *
@@ -95,7 +95,7 @@ class Transaction implements Taggable
      *
      * @Serializer\Expose
      */
-    protected $entries;
+    private $entries;
 
     public function getTags()
     {
