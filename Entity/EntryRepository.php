@@ -24,8 +24,6 @@ class EntryRepository extends EntityRepository
         $qb->where('a.account = :accountId');
         $qb->setParameter('accountId', $account->getId());
 
-        $qb->leftJoin('MercantileElendingAccountingBundle:ElendingTransaction', 't', 'WITH', 'a.transaction = t.id');
-
         if ($stop) {
             $qb->andWhere($qb->expr()->lte('t.date', ':endDate'));
             $qb->setParameter('endDate', $stop->format('Y-m-d'));
