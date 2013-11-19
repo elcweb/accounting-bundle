@@ -52,7 +52,7 @@ class Transaction implements Taggable
     /**
      * @var Transaction
      *
-     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="childrens")
+     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="childrens", fetch="EAGER")
      * @ORM\JoinColumn( referencedColumnName="id",onDelete="CASCADE")
      *
      * @Serializer\Expose
@@ -71,7 +71,7 @@ class Transaction implements Taggable
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="parent", fetch="EAGER")
      */
     private $childrens;
 
@@ -99,7 +99,7 @@ class Transaction implements Taggable
 
     public function getTags()
     {
-        $this->tags = $this->tags ?: new ArrayCollection();
+        $this->tags = $this->tags ? : new ArrayCollection();
 
         return $this->tags;
     }
@@ -228,7 +228,7 @@ class Transaction implements Taggable
 
     public function __toString()
     {
-        return ''.$this->getId().'';
+        return '' . $this->getId() . '';
     }
 
     /**
@@ -237,7 +237,7 @@ class Transaction implements Taggable
     public function __construct()
     {
         $this->childrens = new ArrayCollection();
-        $this->entries   = $this->entries ?: new ArrayCollection();
+        $this->entries   = $this->entries ? : new ArrayCollection();
     }
 
     /**
@@ -266,7 +266,7 @@ class Transaction implements Taggable
     /**
      * Get childrens
      *
-     * @return Transaction[]
+     * @return Collection
      */
     public function getChildrens()
     {
@@ -276,7 +276,7 @@ class Transaction implements Taggable
     /**
      * Get entries
      *
-     * @return Entry[]
+     * @return Collection
      */
     public function getEntries()
     {
@@ -319,5 +319,28 @@ class Transaction implements Taggable
                 $this->addEntry($clone);
             }
         }
+    }
+
+    /**
+     * Add entries
+     *
+     * @param Entry $entries
+     * @return Transaction
+     */
+    public function addEntrie(Entry $entries)
+    {
+        $this->entries[] = $entries;
+
+        return $this;
+    }
+
+    /**
+     * Remove entries
+     *
+     * @param Entry $entries
+     */
+    public function removeEntrie(Entry $entries)
+    {
+        $this->entries->removeElement($entries);
     }
 }

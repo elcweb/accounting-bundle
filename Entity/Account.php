@@ -2,6 +2,7 @@
 
 namespace Elcweb\AccountingBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use DoctrineExtensions\Taggable\Taggable;
@@ -131,14 +132,303 @@ class Account implements Taggable
      */
     private $ref;
 
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->entries = $this->entries ?: new ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->entries  = new ArrayCollection();
     }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Account
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     * @return Account
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+
+        return $this;
+    }
+
+    /**
+     * Get lft
+     *
+     * @return integer
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     * @return Account
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     * @return Account
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    /**
+     * Get rgt
+     *
+     * @return integer
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Set root
+     *
+     * @param integer $root
+     * @return Account
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    /**
+     * Get root
+     *
+     * @return integer
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Account
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set ref
+     *
+     * @param string $ref
+     * @return Account
+     */
+    public function setRef($ref)
+    {
+        $this->ref = $ref;
+
+        return $this;
+    }
+
+    /**
+     * Get ref
+     *
+     * @return string
+     */
+    public function getRef()
+    {
+        return $this->ref;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param Account $parent
+     * @return Account
+     */
+    public function setParent(Account $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return Account
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param Account $children
+     * @return Account
+     */
+    public function addChildren(Account $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param Account $children
+     */
+    public function removeChildren(Account $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Add entries
+     *
+     * @param Entry $entries
+     * @return Account
+     */
+    public function addEntrie(Entry $entries)
+    {
+        $this->entries[] = $entries;
+
+        return $this;
+    }
+
+    /**
+     * Remove entries
+     *
+     * @param Entry $entries
+     */
+    public function removeEntrie(Entry $entries)
+    {
+        $this->entries->removeElement($entries);
+    }
+
+    /**
+     * Get entries
+     *
+     * @return Collection
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+
+    /**
+     * Set type
+     *
+     * @param AccountType $type
+     * @return Account
+     */
+    public function setType(AccountType $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return AccountType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
 
     public function getTags()
     {
-        $this->tags = $this->tags ?: new ArrayCollection();
+        $this->tags = $this->tags ? : new ArrayCollection();
 
         return $this->tags;
     }
@@ -153,80 +443,15 @@ class Account implements Taggable
         return $this->getId();
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setParent(Account $parent = null)
-    {
-        $this->parent = $parent;
-    }
-
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-
-    public function getEntries()
-    {
-        return $this->entries;
-    }
-
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    public function setRef($ref)
-    {
-        $this->ref = $ref;
-    }
-
-    public function getRef()
-    {
-        return $this->ref;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
     public function __toString()
     {
-        return (string) $this->getName();
+        return (string)$this->getName();
     }
 
     public function getBalance()
     {
-        $sign = (int) ($this->getType()->getValue()."1");
+        $sign = (int)($this->getType()->getValue() . "1");
+
         return $this->getSum() * $sign;
     }
 
@@ -246,7 +471,7 @@ class Account implements Taggable
         foreach ($this->getEntries() AS $entry) {
             $balance += $entry->getAmount();
         }
-        
+
         return $balance;
     }
 
@@ -259,8 +484,4 @@ class Account implements Taggable
 
         return $balance;
     }
-
-
-
-
 }

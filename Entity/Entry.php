@@ -155,7 +155,7 @@ class Entry
     /**
      * Set transaction
      *
-     * @param \Elcweb\AccountingBundle\Entity\Transaction $transaction
+     * @param Transaction $transaction
      * @return Entry
      */
     public function setTransaction(Transaction $transaction)
@@ -168,7 +168,7 @@ class Entry
     /**
      * Get transaction
      *
-     * @return \Elcweb\AccountingBundle\Entity\Transaction
+     * @return Transaction
      */
     public function getTransaction()
     {
@@ -178,7 +178,7 @@ class Entry
     /**
      * Set account
      *
-     * @param \Elcweb\AccountingBundle\Entity\Account $account
+     * @param Account $account
      * @return Entry
      */
     public function setAccount(Account $account)
@@ -191,7 +191,7 @@ class Entry
     /**
      * Get account
      *
-     * @return \Elcweb\AccountingBundle\Entity\Account
+     * @return Account
      */
     public function getAccount()
     {
@@ -201,7 +201,7 @@ class Entry
     public function __clone()
     {
         if ($this->id) {
-            $this->id = null;
+            $this->id          = null;
             $this->transaction = null;
         }
     }
