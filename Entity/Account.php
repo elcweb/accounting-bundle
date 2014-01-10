@@ -9,6 +9,7 @@ use DoctrineExtensions\Taggable\Taggable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
+use DateTime;
 
 /**
  * Account
@@ -465,10 +466,36 @@ class Account implements Taggable
         return $balance;
     }
 
-    public function getSum()
+    /**
+     * Get the sum of all the account entries with optional start end date parameters
+     *
+     * @param DateTime $startDate
+     * @param DateTime $endDate
+     * @return float|int
+     */
+    public function getSum(DateTime $startDate = null, DateTime $endDate = null)
     {
         $balance = 0;
-        foreach ($this->getEntries() AS $entry) {
+
+        /** @var $entries Entry[] */
+        $entries = $this->getEntries()->filter(
+            function (Entry $entry) use ($startDate, $endDate) {
+
+                $filter = true;
+
+                if ($startDate) {
+                    $filter &= $entry->getTransaction()->getDate()->format('Y-m-d') >= $startDate->format('Y-m-d');
+                }
+
+                if ($startDate) {
+                    $filter &= $entry->getTransaction()->getDate()->format('Y-m-d') <= $endDate->format('Y-m-d');
+                }
+
+                return $filter;
+            }
+        );
+
+        foreach ($entries as $entry) {
             $balance += $entry->getAmount();
         }
 
