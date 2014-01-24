@@ -1,0 +1,44 @@
+{% extends '::layout.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="active">Accounts</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+    {% spaceless %}
+        <ul>
+            {% for t in tree %}
+                {% include "ElcwebAccountingBundle:Partial:treeChild.html.twig" with {'pathTarget': 'elcweb_accounting_account_show', 'node': t} %}
+            {% endfor %}
+        </ul>
+
+        <div>
+            <table class="table tablesorter table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>Account</th>
+                        <th>Ref</th>
+                        <th>Slug</th>
+                        <th>Parent</th>
+                        <th>Amount</th>
+                        <th>Total amount</th>
+                        <th>Absolute amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for account in accounts %}
+                        <tr>
+                            <td><a href="{{ path('elcweb_accounting_account_show', { id: account.id }) }}">{{ account.name }}</a></td>
+                            <td>{{ account.ref }}</td>
+                            <td>{{ account.slug }}</td>
+                            <td>{% if account.parent.name is defined %}<a href="{{ path('elcweb_accounting_account_show', { id: account.parent.id }) }}">{{ account.parent.name }}</a>{% endif %}</td>
+                            <td>$&nbsp;{{ account.balance|number_format(2) }}</td>
+                            <td>$&nbsp;{{ account.balanceChildren|number_format(2) }}</td>
+                            <td>$&nbsp;{{ account.sumChildren|number_format(2) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endspaceless %}
+{% endblock %}

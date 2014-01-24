@@ -1,0 +1,20 @@
+This bundle need to be able to let us manage transaction like an accounting system.
+
+
+Account(or ledger term need to be determine) Manager:
+- create account
+- retrive sum by account
+- retrive sum by account for a period of date (starting date optional)
+
+
+Transaction
+- get transaction by tag
+- get transaction
+- validate (check if sum on entries = 0)
+
+
+Questions:
+- Account or Transaction or Entry is tagged ?
+    ex. if we tag account, we will need to create multiple accounts for a customer.
+    ex. if we tag transaction, we will need to get transaction for appling filters.
+    ex. if we tag entries, for report we can filter directly by account and/or tags

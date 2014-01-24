@@ -1,0 +1,25 @@
+{
+    "name": "elcweb/accounting-bundle",
+    "type": "symfony-bundle",
+    "description": "Allows you to easily access an Accounting backend",
+    "license": "propritary",
+    "authors": [
+        {
+            "name": "Etienne Lachance",
+            "email": "el@elcweb.ca"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle":         ">=2.1,<3.0-dev",
+        "stof/doctrine-extensions-bundle":  "~1.1@dev",
+        "fpn/doctrine-extensions-taggable": "dev-master",
+        "fpn/tag-bundle":                   "dev-master",
+        "jms/serializer-bundle":            "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "Elcweb\\AccountingBundle": "" }
+    },
+    "minimum-stability": "dev",
+    "target-dir": "Elcweb/AccountingBundle"
+}

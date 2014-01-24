@@ -1,0 +1,26 @@
+{% extends '::layout.html.twig' %}
+
+{% block breadcrumb %}
+    <li class="active">Transactions</li>
+{% endblock breadcrumb %}
+
+{% block content %}
+    {% spaceless %}
+        <table class="table tablesorter table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>Transaction ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td>
+                        <a href="{{ path('elcweb_accounting_transaction_show', { id: transaction.id }) }}">{{ transaction.id }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endspaceless %}
+{% endblock %}
