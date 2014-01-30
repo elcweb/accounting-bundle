@@ -24,6 +24,7 @@ Add ElcwebAccountingBundle in your composer.json:
     "require": {
         "fpn/doctrine-extensions-taggable"   : "dev-master",
         "fpn/tag-bundle"                     : "dev-master",
+        "elcweb/tag-bundle"                  : "dev-master",
         "elcweb/accounting-bundle"           : "dev-master",
     }
 }
@@ -51,6 +52,7 @@ public function registerBundles()
         // ...
         new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         new FPN\TagBundle\FPNTagBundle(),
+        new Elcweb\TagBundle\ElcwebTagBundle(),
         new Elcweb\AccountingBundle\ElcwebAccountingBundle(),
     );
 }
@@ -63,6 +65,11 @@ of datastore you are using.
 
 ``` yaml
 # app/config/config.yml
+fpn_tag:
+    model:
+        tag_class:     Elcweb\TagBundle\Entity\Tag
+        tagging_class: Elcweb\TagBundle\Entity\Tagging
+
 elcweb_accounting:
 ```
 
@@ -78,7 +85,9 @@ In YAML:
 ``` yaml
 # app/config/routing.yml
 elcweb_accounting:
-    resource: "@ElcwebAccountingBundle/Resources/config/routing.yml"
+    resource: "@ElcwebAccountingBundle/Controller/"
+    type:     annotation
+    prefix:   /
 ```
 
 ### Step 5: Update your database schema
@@ -86,5 +95,5 @@ elcweb_accounting:
 For ORM run the following command.
 
 ``` bash
-$ php app/console doctrine:schema:update --force
+$ php app/console doctrine:schema:update
 ```
