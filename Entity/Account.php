@@ -487,7 +487,7 @@ class Account implements Taggable
                     $filter &= $entry->getTransaction()->getDate()->format('Y-m-d') >= $startDate->format('Y-m-d');
                 }
 
-                if ($startDate) {
+                if ($endDate) {
                     $filter &= $entry->getTransaction()->getDate()->format('Y-m-d') <= $endDate->format('Y-m-d');
                 }
 
