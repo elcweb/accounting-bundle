@@ -346,35 +346,15 @@ class Transaction implements Taggable
     
     
     /**
-     * Get the sum of all the transaction entries with optional start end date parameters
+     * Get the sum of all the transaction entries
      *
-     * @param DateTime $startDate
-     * @param DateTime $endDate
      * @return float|int
      */
-    public function getSum(DateTime $startDate = null, DateTime $endDate = null)
+    public function getSum()
     {
         $balance = 0;
 
-        /** @var $entries Entry[] */
-        $entries = $this->getEntries()->filter(
-            function (Entry $entry) use ($startDate, $endDate) {
-
-                $filter = true;
-
-                if ($startDate) {
-                    $filter &= $this->getDate() >= $startDate;
-                }
-
-                if ($startDate) {
-                    $filter &= $this->getDate() <= $endDate;
-                }
-
-                return $filter;
-            }
-        );
-
-        foreach ($entries as $entry) {
+        foreach ($this->getEntries() as $entry) {
             $balance += ($entry->getAmount() * ((double) $entry->getAccount()->getType()->getValue().'1'));
         }
 
