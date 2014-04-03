@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * Transaction
  *
- * @ORM\Table(name="acc_transactions")
+ * @ORM\Table(name="acc_transactions",indexes={@ORM\Index(columns={"date"})})
  * @ORM\Entity(repositoryClass="TransactionRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  *
