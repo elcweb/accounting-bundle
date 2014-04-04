@@ -343,4 +343,21 @@ class Transaction implements Taggable
     {
         $this->entries->removeElement($entries);
     }
+
+
+    /**
+     * Get the sum of all the transaction entries
+     *
+     * @return float|int
+     */
+    public function getSum()
+    {
+        $balance = 0;
+
+        foreach ($this->getEntries() as $entry) {
+            $balance += ($entry->getAmount() * ((double) $entry->getAccount()->getType()->getValue().'1'));
+        }
+
+        return $balance;
+    }
 }
