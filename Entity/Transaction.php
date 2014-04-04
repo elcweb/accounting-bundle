@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
 /**
  * Transaction
  *
- * @ORM\Table(name="acc_transactions")
+ * @ORM\Table(name="acc_transactions",indexes={@ORM\Index(columns={"date"})})
  * @ORM\Entity(repositoryClass="TransactionRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  *
@@ -52,7 +52,7 @@ class Transaction implements Taggable
     /**
      * @var Transaction
      *
-     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="childrens", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="childrens")
      * @ORM\JoinColumn( referencedColumnName="id",onDelete="CASCADE")
      *
      * @Serializer\Expose
@@ -71,7 +71,7 @@ class Transaction implements Taggable
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="parent", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="parent")
      */
     private $childrens;
 
