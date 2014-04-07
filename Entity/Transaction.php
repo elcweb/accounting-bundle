@@ -343,8 +343,8 @@ class Transaction implements Taggable
     {
         $this->entries->removeElement($entries);
     }
-    
-    
+
+
     /**
      * Get the sum of all the transaction entries
      *
