@@ -52,7 +52,7 @@ class Transaction implements Taggable
     /**
      * @var Transaction
      *
-     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="childrens")
+     * @ORM\ManyToOne(targetEntity="Transaction", inversedBy="childrens", fetch="EAGER")
      * @ORM\JoinColumn( referencedColumnName="id",onDelete="CASCADE")
      *
      * @Serializer\Expose
@@ -71,7 +71,7 @@ class Transaction implements Taggable
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Transaction", mappedBy="parent", fetch="EAGER")
      */
     private $childrens;
 
