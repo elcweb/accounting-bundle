@@ -133,6 +133,11 @@ class Account implements Taggable
      */
     private $ref;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AccountsDailySummaryView", mappedBy="account")
+     */
+    private $dailySummary;
+
 
     /**
      * Constructor
@@ -141,6 +146,7 @@ class Account implements Taggable
     {
         $this->children = new ArrayCollection();
         $this->entries  = new ArrayCollection();
+        $this->dailySummary  = new ArrayCollection();
     }
 
     /**
@@ -404,6 +410,16 @@ class Account implements Taggable
     }
 
     /**
+     * Get dailySummary
+     *
+     * @return Collection
+     */
+    public function getDailySummary()
+    {
+        return $this->dailySummary;
+    }
+
+    /**
      * Set type
      *
      * @param AccountType $type
@@ -477,18 +493,18 @@ class Account implements Taggable
     {
         $balance = 0;
 
-        /** @var $entries Entry[] */
-        $entries = $this->getEntries()->filter(
-            function (Entry $entry) use ($startDate, $endDate) {
+        /** @var $entries AccountsDailySummaryView[] */
+        $entries = $this->getDailySummary()->filter(
+            function (AccountsDailySummaryView $entry) use ($startDate, $endDate) {
 
                 $filter = true;
 
                 if ($startDate) {
-                    $filter &= $entry->getTransaction()->getDate()->format('Y-m-d') >= $startDate->format('Y-m-d');
+                    $filter &= $entry->getDay()->format('Y-m-d') >= $startDate->format('Y-m-d');
                 }
 
-                if ($startDate) {
-                    $filter &= $entry->getTransaction()->getDate()->format('Y-m-d') <= $endDate->format('Y-m-d');
+                if ($endDate) {
+                    $filter &= $entry->getDay()->format('Y-m-d') <= $endDate->format('Y-m-d');
                 }
 
                 return $filter;
@@ -496,7 +512,7 @@ class Account implements Taggable
         );
 
         foreach ($entries as $entry) {
-            $balance += $entry->getAmount();
+            $balance += $entry->getTotal();
         }
 
         return $balance;

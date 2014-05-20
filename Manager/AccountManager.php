@@ -20,14 +20,16 @@ class AccountManager
 
     public function create($name, $slug, $tags = array(), $parent = null)
     {
-        $parentAccount = $this->em->getRepository('ElcwebAccountingBundle:Account')->findOneBySlug($parent);
-        
+        $repo = $this->em->getRepository('ElcwebAccountingBundle:Account');
+
+        $parentAccount = $repo->findOneBySlug($parent);
+
         if (!$parentAccount) {
             // todo: throw error
         }
 
         // todo: validate if not existent
-        $account = false;
+        $account = $repo->findOneBySlug($slug);
 
         if (!$account) {
             $account = new Account;
@@ -52,7 +54,8 @@ class AccountManager
 
     /**
      *
-     * @return array
+     * @param $tag
+     * @return Account[]
      */
     public function findByTag($tag)
     {
