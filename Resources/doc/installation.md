@@ -22,7 +22,7 @@ Add ElcwebAccountingBundle in your composer.json:
     ```js
     {
         "require": {
-            "fpn/doctrine-extensions-taggable"   : "dev-master",
+            "fpn/doctrine-extensions-taggable"   : "v0.9.0",
             "fpn/tag-bundle"                     : "dev-master",
             "elcweb/tag-bundle"                  : "dev-master",
             "elcweb/accounting-bundle"           : "dev-master",
